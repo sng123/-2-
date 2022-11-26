@@ -17,45 +17,44 @@ def load_dataset(dataset_path):
 	return pd.read_csv(dataset_path)
     
 def dataset_stat(dataset_df):
-    size = dataset_df.groupby("target").size()
-    return len(dataset_df.columns) - 1, size[0], size[1]
+	size = dataset_df.groupby("target").size()
+	return len(dataset_df.columns) - 1, size[0], size[1]
     
 def split_dataset(dataset_df, testset_size):
-    X_train, X_test, Y_train, Y_test = train_test_split(dataset_df, dataset_df.target, test_size = testset_size)
-    return X_train, X_test, Y_train, Y_test
+    	X_train, X_test, Y_train, Y_test = train_test_split(dataset_df, dataset_df.target, test_size = testset_size)
+    	return X_train, X_test, Y_train, Y_test
 
 def decision_tree_train_test(x_train, x_test, y_train, y_test):
-    dt_cls = DecisionTreeClassifier()
-    dt_cls.fit(x_train, y_train)
+   	dt_cls = DecisionTreeClassifier()
+   	dt_cls.fit(x_train, y_train)
+	dacc = accuracy_score(y_test, dt_cls.predict(x_test))
+  	dprec = precision_score(y_test, dt_cls.predict(x_test))
+    	drecall = recall_score(y_test, dt_cls.predict(x_test))
     
-    dacc = accuracy_score(y_test, dt_cls.predict(x_test))
-    dprec = precision_score(y_test, dt_cls.predict(x_test))
-    drecall = recall_score(y_test, dt_cls.predict(x_test))
-    
-    return dacc, dprec, drecall
+    	return dacc, dprec, drecall
     
 def random_forest_train_test(x_train, x_test, y_train, y_test):
-    rf_cls = RandomForestClassifier()
-    rf_cls.fit(x_train, y_train)
+    	rf_cls = RandomForestClassifier()
+    	rf_cls.fit(x_train, y_train)
     
-    racc = accuracy_score(y_test, rf_cls.predict(x_test))
-    rprec = precision_score(y_test, rf_cls.predict(x_test))
-    rrecall = recall_score(y_test, rf_cls.predict(x_test))
+   	racc = accuracy_score(y_test, rf_cls.predict(x_test))
+    	rprec = precision_score(y_test, rf_cls.predict(x_test))
+    	rrecall = recall_score(y_test, rf_cls.predict(x_test))
     
-    return racc, rprec, rrecall
+   	return racc, rprec, rrecall
 
 def svm_train_test(x_train, x_test, y_train, y_test):
-    svm_pipe = make_pipeline(
-        StandardScaler(),
-        SVC()
-    )
-    svm_pipe.fit(x_train, y_train)
+    	svm_pipe = make_pipeline(
+        	StandardScaler(),
+        	SVC()
+    	)
+    	svm_pipe.fit(x_train, y_train)
     
-    sacc = accuracy_score(y_test, svm_pipe.predict(x_test))
-    sprec = precision_score(y_test, svm_pipe.predict(x_test))
-    srecall = recall_score(y_test, svm_pipe.predict(x_test))
+    	sacc = accuracy_score(y_test, svm_pipe.predict(x_test))
+    	sprec = precision_score(y_test, svm_pipe.predict(x_test))
+    	srecall = recall_score(y_test, svm_pipe.predict(x_test))
     
-    return sacc, sprec, srecall
+    	return sacc, sprec, srecall
 
 def print_performances(acc, prec, recall):
 	#Do not modify this function!
