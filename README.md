@@ -26,6 +26,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 
+
 판다스를 이용하여 csv파일을 DataFrame에 저장하고 return 해줍니다
 
 def load_dataset(dataset_path):
